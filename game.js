@@ -31,11 +31,17 @@ const endRestartBtn = document.getElementById("endRestart");
 
 let W, H, dpr;
 function resize(){
+
   dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+
   W = Math.floor(window.innerWidth);
-  H = Math.floor(window.innerHeight);
+
+  const vv = window.visualViewport;
+  H = Math.floor(vv ? vv.height : window.innerHeight);
+
   canvas.width = Math.floor(W * dpr);
   canvas.height = Math.floor(H * dpr);
+
   ctx.setTransform(dpr,0,0,dpr,0,0);
 }
 window.addEventListener("resize", resize);
@@ -93,7 +99,7 @@ function resetGame(){
   state.items.length = 0;
 
   catcher.x = W/2;
-  catcher.y = H - 110;
+  catcher.y = H - (catcher.h / 2) - 20;
 
   scoreEl.textContent = "0";
   timeEl.textContent = String(GAME_DURATION);
@@ -203,7 +209,7 @@ function update(dt){
     catcher.x = clamp(catcher.x, catcher.w/2 + 10, W - catcher.w/2 - 10);
   }
 
-  catcher.y = H - 110;
+  catcher.y = H - (catcher.h / 2) - 20;
 
   // items update + collision (rect-rect simple)
   const cx = catcher.x - catcher.w/2;
