@@ -78,8 +78,8 @@ function imageReady(img){ return img && img.complete && img.naturalWidth > 0; }
 
 const catcher = {
   // Smaller max size for laptops + still responsive for phones
-  w: Math.min(140, W * 0.22),
-  h: Math.min(140, W * 0.22),
+  w: Math.min(140, W * 0.32),
+  h: Math.min(140, W * 0.32),
 
   x: 0,
   y: 0,
