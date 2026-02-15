@@ -124,6 +124,7 @@ canvas.addEventListener("pointerdown", (e)=>{
   setCatcherToClientX(e.clientX);
 });
 canvas.addEventListener("pointermove", (e)=>{
+  e.preventDefault(); // ⭐ يمنع تحريك الصفحة
   if(!dragging) return;
   setCatcherToClientX(e.clientX);
 });
