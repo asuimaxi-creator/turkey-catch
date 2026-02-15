@@ -32,8 +32,16 @@ const endRestartBtn = document.getElementById("endRestart");
 let W, H, dpr;
 function getSafeBottom(){
   const vv = window.visualViewport;
-  if(!vv) return 0;
-  return Math.max(0, window.innerHeight - vv.height - (vv.offsetTop || 0));
+
+  // base safeBottom from VisualViewport
+  let base = 0;
+  if (vv) base = Math.max(0, window.innerHeight - vv.height - (vv.offsetTop || 0));
+
+  // ✅ Fix for iPhone Chrome bottom bar (CriOS)
+  const isIOSChrome = /CriOS/i.test(navigator.userAgent);
+  const extra = isIOSChrome ? 55 : 0;   // ارفعها إذا احتجت (45-70)
+
+  return base + extra;
 }
 function resize(){
 
