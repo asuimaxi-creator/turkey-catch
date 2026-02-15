@@ -30,6 +30,11 @@ const endBest  = document.getElementById("endBest");
 const endRestartBtn = document.getElementById("endRestart");
 
 let W, H, dpr;
+function getSafeBottom(){
+  const vv = window.visualViewport;
+  if(!vv) return 0;
+  return Math.max(0, window.innerHeight - vv.height - (vv.offsetTop || 0));
+}
 function resize(){
 
   dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
@@ -209,7 +214,8 @@ function update(dt){
     catcher.x = clamp(catcher.x, catcher.w/2 + 10, W - catcher.w/2 - 10);
   }
 
-  catcher.y = H - (catcher.h / 2) - 20;
+  const safeBottom = getSafeBottom();
+catcher.y = H - (catcher.h / 2) - safeBottom - 10;
 
   // items update + collision (rect-rect simple)
   const cx = catcher.x - catcher.w/2;
